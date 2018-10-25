@@ -13,5 +13,7 @@ void Game::update()
 
 void Game::render()
 {
-	// e.g. pass object details to the engine to render the next frame
+	m_engineInterfacePtr->renderColouredBackground(m_playerBackground.r, m_playerBackground.g, m_playerBackground.b); 
+
+	// e.g. pass object details to the engine to render the next frame.
 }

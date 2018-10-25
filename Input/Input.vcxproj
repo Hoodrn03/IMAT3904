@@ -73,6 +73,8 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
+    <IncludePath>include;$(IncludePath)</IncludePath>
+    <OutDir>.\bin</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
@@ -97,6 +99,7 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>opengl32.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)\Input\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -154,17 +157,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Game.cpp" />
-    <ClCompile Include="glad.c" />
-    <ClCompile Include="GLFW_EngineCore.cpp" />
-    <ClCompile Include="main.cpp" />
+    <ClCompile Include="src/Game.cpp" />
+    <ClCompile Include="src/glad.c" />
+    <ClCompile Include="src/GLFW_EngineCore.cpp" />
+    <ClCompile Include="src/main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Game.h" />
-    <ClInclude Include="GameObject.h" />
-    <ClInclude Include="GLFW_EngineCore.h" />
-    <ClInclude Include="IEngineCore.h" />
-    <ClInclude Include="InputHandler.h" />
+    <ClInclude Include="include/Game.h" />
+    <ClInclude Include="include/GameObject.h" />
+    <ClInclude Include="include/GLFW_EngineCore.h" />
+    <ClInclude Include="include/IEngineCore.h" />
+    <ClInclude Include="include/InputHandler.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

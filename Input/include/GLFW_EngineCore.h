@@ -15,6 +15,8 @@ public:
 	bool initWindow(int width, int height, std::string windowName) override;
 	bool runEngine(Game& game) override;
 
+	void renderColouredBackground(float r, float g, float b) override;
+
 private:
 	GLFWwindow* m_window;
 	static std::vector<bool> m_keyBuffer;

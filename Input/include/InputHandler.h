@@ -3,7 +3,7 @@
 #include "GameObject.h"
 #include <vector>
 
-#define COLOUR_ADJUSTMENT_VALUE 0.001f
+#define COLOUR_ADJUSTMENT_VALUE 0.01f
 
 class InputCommand
 {

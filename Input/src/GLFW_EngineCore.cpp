@@ -65,6 +65,13 @@ bool GLFW_EngineCore::runEngine(Game& game)
 	return true;
 }
 
+void GLFW_EngineCore::renderColouredBackground(float r, float g, float b)
+{
+	glClearColor(r, g, b, 1.0f); 
+
+	glClear(GL_COLOR_BUFFER_BIT);
+}
+
 
 
 //-----------------------------Private functions------------------------------
