@@ -10,18 +10,24 @@
 */
 Game::Game()
 {
+	m_GameCubes.resize(2); 
+
 	m_engineInterfacePtr = nullptr;
-	m_inputHandler = new InputHandler(&m_playerCube);
+	m_inputHandler = new InputHandler(&m_GameCubes[0]);
 
 	m_playerBackground.addComponent(new RedComponent);
 	m_playerBackground.addComponent(new GreenComponent);
-	m_playerBackground.addComponent(new BlueComponent);
+	m_playerBackground.addComponent(new BlueComponent); 
 
-	m_playerCube.addComponent(new TransformComponent);
-	
+	m_GameCubes[0].addComponent(new TransformComponent);
+	m_GameCubes[1].addComponent(new TransformComponent);
+
 	// move the cube
-	TransformComponent* temp = m_playerCube.getComponent<TransformComponent>();
-	temp->translate(0, 0, -5);
+	TransformComponent* l_temp = m_GameCubes[0].getComponent<TransformComponent>();
+	l_temp->translate(0, 0, -5);
+
+	TransformComponent* l_tempTwo = m_GameCubes[1].getComponent<TransformComponent>();
+	l_tempTwo->translate(0, 0, -5);
 }
 
 //-----------------------------------------------------------//
@@ -70,7 +76,9 @@ void Game::render()
 	m_engineInterfacePtr->setCamera(&m_camera);
 
 	// draw the cube
-	m_engineInterfacePtr->drawCube(m_playerCube.getComponent<TransformComponent>()->getModelMatrix());
+	m_engineInterfacePtr->drawCube(m_GameCubes[0].getComponent<TransformComponent>()->getModelMatrix());
+
+	m_engineInterfacePtr->drawCube(m_GameCubes[1].getComponent<TransformComponent>()->getModelMatrix());
 	
 }
 

@@ -30,7 +30,9 @@ private:
 	GameObject m_playerBackground;
 
 	/*! \var The initial Cube dissplayed within the game world. */
-	GameObject m_playerCube;
+	// GameObject m_playerCube;
+
+	std::vector<GameObject> m_GameCubes; 
 
 	/*! \var This will be the main game camera for the game. */
 	Camera m_camera;
