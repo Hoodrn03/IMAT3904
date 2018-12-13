@@ -10,24 +10,18 @@
 */
 Game::Game()
 {
-	m_GameCubes.resize(2); 
-
 	m_engineInterfacePtr = nullptr;
-	m_inputHandler = new InputHandler(&m_GameCubes[0]);
 
 	m_playerBackground.addComponent(new RedComponent);
 	m_playerBackground.addComponent(new GreenComponent);
 	m_playerBackground.addComponent(new BlueComponent); 
 
-	m_GameCubes[0].addComponent(new TransformComponent);
-	m_GameCubes[1].addComponent(new TransformComponent);
+	loadLevel("assets/levels/myCubeLevel.txt");
 
-	// move the cube
-	TransformComponent* l_temp = m_GameCubes[0].getComponent<TransformComponent>();
-	l_temp->translate(0, 0, -5);
-
-	TransformComponent* l_tempTwo = m_GameCubes[1].getComponent<TransformComponent>();
-	l_tempTwo->translate(0, 0, -5);
+	if (m_GameCubes.size() > 0)
+	{
+		m_inputHandler = new InputHandler(&m_GameCubes[0]);
+	}
 }
 
 //-----------------------------------------------------------//
@@ -76,9 +70,105 @@ void Game::render()
 	m_engineInterfacePtr->setCamera(&m_camera);
 
 	// draw the cube
-	m_engineInterfacePtr->drawCube(m_GameCubes[0].getComponent<TransformComponent>()->getModelMatrix());
-
-	m_engineInterfacePtr->drawCube(m_GameCubes[1].getComponent<TransformComponent>()->getModelMatrix());
+	if (m_GameCubes.size() > 0)
+	{
+		for (unsigned int i = 0; i < m_GameCubes.size(); i++)
+		{
+			m_engineInterfacePtr->drawCube(m_GameCubes[i].getComponent<TransformComponent>()->getModelMatrix());
+		}
+	}
 	
+}
+
+void Game::loadLevel(std::string levelFile)
+{
+
+	int l_iNumberOfElementsToRead; 
+	
+	std::stringstream l_ss;
+	std::string l_s;
+
+	std::ifstream l_MyInputFile; 
+
+	l_MyInputFile.open(levelFile, std::ios_base::in);
+
+	if (l_MyInputFile.is_open())
+	{
+		std::getline(l_MyInputFile, l_s);
+
+		std::cout << l_s << std::endl;
+
+		l_ss.str(l_s); 
+
+		while (!l_ss.eof())
+		{
+			std::string l_temp;
+
+			l_ss >> l_temp;
+
+			if (std::stringstream(l_temp) >> l_iNumberOfElementsToRead)
+			{
+				break;
+			}
+		}
+
+		m_GameCubes.resize(l_iNumberOfElementsToRead); 
+
+		float w, x, y, z;
+
+		for (unsigned int i = 0; i < l_iNumberOfElementsToRead; i++)
+		{
+			// Discard First line. 
+
+			std::getline(l_MyInputFile, l_s);
+
+			l_ss.clear(); 
+
+			std::cout << l_s << std::endl;
+
+			// Get Position values. 
+
+			std::getline(l_MyInputFile, l_s);
+
+			l_ss.clear();
+
+			l_ss.str(l_s);
+
+			l_ss >> x >> y >> z;
+
+			glm::vec3 pos(x, y, z);
+
+			// Get Orientation values 
+
+			std::getline(l_MyInputFile, l_s);
+
+			l_ss.clear();
+
+			l_ss.str(l_s);
+
+			l_ss >> w >> x >> y >> z;
+
+			glm::quat orient(w, x, y, z);
+
+			// Get Scale values. 
+
+			std::getline(l_MyInputFile, l_s);
+
+			l_ss.clear();
+
+			l_ss.str(l_s);
+
+			l_ss >> x >> y >> z;
+
+			glm::vec3 scale(x, y, z);
+
+			// Create Cube 
+
+			m_GameCubes[i].addComponent(new TransformComponent(pos, orient, scale));
+
+		}
+
+	}
+
 }
 
