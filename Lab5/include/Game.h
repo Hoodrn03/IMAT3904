@@ -4,6 +4,7 @@
 #include "InputHandler.h"
 #include "GameObject.h"
 #include "Camera.h"
+#include "Scene.h"
 
 class Game
 {
@@ -29,13 +30,10 @@ private:
 	/*! \var The background for the game. */
 	GameObject m_playerBackground;
 
-	/*! \var The initial Cube dissplayed within the game world. */
-	// GameObject m_playerCube;
-
-	std::vector<GameObject> m_GameCubes; 
-
 	/*! \var This will be the main game camera for the game. */
 	Camera m_camera;
+
+	Scene* m_CurrentScene; 
 
 public:
 
@@ -58,7 +56,5 @@ public:
 	*
 	*/
 	void render();
-
-	void loadLevel(std::string levelFile);
 
 };
