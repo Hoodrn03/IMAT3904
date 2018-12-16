@@ -16,22 +16,24 @@ void Scene::m_Render(IEngineCore * engineInterface)
 {
 	// draw the cube
 
-	if (m_GameObjects.size() > 0)
+	if (v_GameObjects.size() > 0)
 	{
-		for (unsigned int i = 0; i < m_GameObjects.size(); i++)
+		for (unsigned int i = 0; i < v_GameObjects.size(); i++)
 		{
-			engineInterface->drawCube(m_GameObjects[i].getComponent<TransformComponent>()->getModelMatrix());
+			engineInterface->drawCube(v_GameObjects[i].getComponent<TransformComponent>()->getModelMatrix());
 		}
 	}
 }
 
 std::vector<GameObject> Scene::m_GetGameObjects()
 {
-	return m_GameObjects;
+	return v_GameObjects;
 }
 
-void Scene::loadLevel(std::string levelFile)
+void Scene::m_loadLevel(std::string levelFile)
 {
+	v_GameObjects.clear(); 
+
 	int l_iNumberOfElementsToRead;
 
 	std::stringstream l_ss;
@@ -67,11 +69,11 @@ void Scene::loadLevel(std::string levelFile)
 
 		// Set the size of the vector to be the number of elements in the .txt file.
 
-		m_GameObjects.resize(l_iNumberOfElementsToRead);
+		v_GameObjects.resize(l_iNumberOfElementsToRead);
 
 		float w, x, y, z;
 
-		for (unsigned int i = 0; i < l_iNumberOfElementsToRead; i++)
+		for (int i = 0; i < l_iNumberOfElementsToRead; i++)
 		{
 			// Discard First line. 
 
@@ -119,10 +121,58 @@ void Scene::loadLevel(std::string levelFile)
 
 			// Create Cube 
 
-			m_GameObjects[i].addComponent(new TransformComponent(pos, orient, scale));
+			v_GameObjects[i].addComponent(new TransformComponent(pos, orient, scale));
 
 		}
 
 	}
 
 }
+
+bool Scene::m_LoadLevelJson(std::string levelFile)
+{
+	v_GameObjects.clear(); 
+
+	// Initalize variables. 
+	std::fstream l_JasonData;
+	
+	Json::Value l_Root;
+	Json::Reader l_Reader;
+	
+	// Open file.
+	l_JasonData.open(levelFile.c_str()); 
+
+	// Check for errors. 
+	if (!l_Reader.parse(l_JasonData, l_Root))
+	{
+		std::cout << "Failed to parse data from: " << levelFile << l_Reader.getFormattedErrorMessages(); 
+
+		return false; 
+	}
+
+	const Json::Value l_GameObjects = l_Root["GameObjects"];
+
+	v_GameObjects.resize(l_GameObjects.size()); 
+
+	for (unsigned int i = 0; i < l_GameObjects.size(); i++)
+	{
+		std::cout << l_GameObjects[i]["name"].asString() << " Loaded" << std::endl;
+
+		float x, y, z; 
+
+		const Json::Value l_PosNode = l_GameObjects[i]["position"];
+
+		x = l_PosNode[0].asFloat();
+		y = l_PosNode[1].asFloat();
+		z = l_PosNode[2].asFloat();
+
+		glm::vec3 pos(x, y, z); 
+
+		v_GameObjects[i].addComponent(new TransformComponent(pos));
+		
+	}
+
+	return true;
+}
+
+

@@ -4,6 +4,8 @@
 #include "GameObject.h"
 #include "TransformComponent.h"
 
+#include <json/json.h>
+
 #include <fstream>
 #include <sstream>
 
@@ -21,7 +23,7 @@ public:
 
 private:
 
-	std::vector<GameObject> m_GameObjects; 
+	std::vector<GameObject> v_GameObjects; 
 
 	// Member Functions
 
@@ -33,6 +35,8 @@ public:
 
 	std::vector<GameObject> m_GetGameObjects(); 
 
-	void loadLevel(std::string levelFile);
+	void m_loadLevel(std::string levelFile);
+
+	bool m_LoadLevelJson(std::string levelFile);
 
 };

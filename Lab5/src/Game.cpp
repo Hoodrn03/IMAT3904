@@ -18,7 +18,7 @@ Game::Game()
 
 	m_CurrentScene = new Scene();
 
-	m_CurrentScene->loadLevel("assets/levels/myCubeLevel.txt");
+	m_CurrentScene->m_LoadLevelJson("assets/levels/testScene.json"); 
 
 	m_inputHandler = new InputHandler(&m_CurrentScene->m_GetGameObjects()[0]);
 }
