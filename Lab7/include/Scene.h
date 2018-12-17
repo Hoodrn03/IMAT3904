@@ -35,8 +35,6 @@ public:
 
 	std::vector<GameObject> m_GetGameObjects(); 
 
-	void m_loadLevel(std::string levelFile);
-
 	bool m_LoadLevelJson(std::string levelFile);
 
 };
