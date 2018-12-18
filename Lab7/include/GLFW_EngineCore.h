@@ -5,6 +5,7 @@
 #include <vector>
 #include <glm/mat4x4.hpp>
 #include "Camera.h"
+#include "Model.h"
 
 class Game;
 
@@ -19,6 +20,8 @@ public:
 
 	void setCamera(const Camera* cam) override;
 	void drawCube(const glm::mat4& modelMatrix) override;
+
+	void drawModel(Model * model, glm::mat4 & modelMatrix) override;
 
 private:
 	GLFWwindow* m_window;

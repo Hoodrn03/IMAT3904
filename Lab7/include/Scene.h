@@ -3,6 +3,8 @@
 #include "IEngineCore.h"
 #include "GameObject.h"
 #include "TransformComponent.h"
+#include "ModelComponent.h"
+#include "Model.h"
 
 #include <json/json.h>
 

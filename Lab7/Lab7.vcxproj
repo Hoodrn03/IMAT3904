@@ -19,14 +19,15 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Mesh.cpp" />
-    <ClCompile Include="Model.cpp" />
     <ClCompile Include="src\jsoncpp.cpp" />
+    <ClCompile Include="src\Mesh.cpp" />
+    <ClCompile Include="src\Model.cpp" />
     <ClCompile Include="src\Scene.cpp" />
     <ClCompile Include="src\Game.cpp" />
     <ClCompile Include="src\GLAD\glad.c" />
     <ClCompile Include="src\GLFW_EngineCore.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\stb_image.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Camera.h" />
@@ -37,11 +38,18 @@
     <ClInclude Include="include\GLFW_EngineCore.h" />
     <ClInclude Include="include\IEngineCore.h" />
     <ClInclude Include="include\InputHandler.h" />
+    <ClInclude Include="include\Mesh.h" />
+    <ClInclude Include="include\Model.h" />
+    <ClInclude Include="include\ModelComponent.h" />
+    <ClInclude Include="include\stb_image.h" />
     <ClInclude Include="include\TransformComponent.h" />
     <ClInclude Include="include\Scene.h" />
-    <ClInclude Include="Mesh.h" />
-    <ClInclude Include="Model.h" />
-    <ClInclude Include="stb_image.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="lib\assimp-vc140-d.lib" />
+    <Library Include="lib\assimp-vc140.lib" />
+    <Library Include="lib\glfw3.lib" />
+    <Library Include="lib\glfw3dll.lib" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
@@ -137,11 +145,13 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <AdditionalIncludeDirectories>C:\Users\Ryan\Documents\GitHub\IMAT3904\Lab7\bin;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>glfw3.lib;opengl32.lib;assimp-vc140.lib;assimp-vc140-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
